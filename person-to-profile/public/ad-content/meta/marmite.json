@@ -1,0 +1,43 @@
+{
+  "id": "marmite",
+  "file": "ad-content/images/marmite.jpg",
+  "tags": {
+    "gender": [
+      "male",
+      "female",
+      "nonbinary",
+      "prefer_not_to_say"
+    ],
+    "age": [
+      "under_18",
+      "18_24",
+      "25_34",
+      "35_49",
+      "50_64",
+      "65_plus"
+    ],
+    "ethnicity": [
+      "white"
+    ],
+    "occupation": [
+      "student",
+      "manual_labour",
+      "unemployed",
+      "other"
+    ],
+    "postcode": [
+      "north_england"
+    ],
+    "income": [
+      "low"
+    ],
+    "education_level": [
+      "gcse",
+      "a_level",
+      "undergraduate",
+      "postgraduate",
+      "doctorate",
+      "other"
+    ]
+  }
+}

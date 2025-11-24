@@ -1,0 +1,39 @@
+{
+  "id": "coca-cola",
+  "file": "ad-content/images/coca-cola.jpg",
+  "tags": {
+    "gender": [
+      "male"
+    ],
+    "age": [
+      "under_18",
+      "18_24"
+    ],
+    "ethnicity": [
+      "white",
+      "black",
+      "asian",
+      "mixed",
+      "other"
+    ],
+    "occupation": [
+      "student",
+      "manual_labour",
+      "retired",
+      "unemployed",
+      "other"
+    ],
+    "postcode": [
+      "northern_ireland"
+    ],
+    "income": [
+      "low",
+      "middle"
+    ],
+    "education_level": [
+      "a_level",
+      "undergraduate",
+      "postgraduate"
+    ]
+  }
+}

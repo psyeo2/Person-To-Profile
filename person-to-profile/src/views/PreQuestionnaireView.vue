@@ -33,19 +33,20 @@
         <button
           class="btn"
           type="button"
-          :disabled="!isComplete"
+          :disabled="!isComplete || submitting"
           @click="submit"
         >
-          See my ads
+          {{ submitting ? "Saving..." : "See my ads" }}
         </button>
         <span class="muted">Your answers stay within this session.</span>
       </div>
+      <p v-if="submitError" class="error-text">{{ submitError }}</p>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import DropDownQuestion from "@/components/questions/DropDownQuestion.vue";
 import NumberQuestion from "@/components/questions/NumberQuestion.vue";
@@ -53,6 +54,7 @@ import PostCodeQuestion from "@/components/questions/PostCodeQuestion.vue";
 import SliderQuestion from "@/components/questions/SliderQuestion.vue";
 import TextQuestion from "@/components/questions/TextQuestion.vue";
 import { useSurveyState, type DemographicAnswers } from "@/lib/surveyState";
+import { createNewParticipant, setDemographicAnswers } from "@/api";
 
 type Question = {
   id: number;
@@ -69,7 +71,9 @@ type Question = {
 };
 
 const router = useRouter();
-const { state, savePreAnswers } = useSurveyState();
+const { state, savePreAnswers, setParticipantId } = useSurveyState();
+const submitting = ref(false);
+const submitError = ref("");
 
 const questions: Question[] = [
   {
@@ -202,9 +206,40 @@ const componentForType: Record<Question["type"], unknown> = {
   text: TextQuestion,
 };
 
-const submit = () => {
-  if (!isComplete.value) return;
-  savePreAnswers({ ...answers, age: answers.age ?? null });
-  router.push({ name: "content" });
+const ensureParticipantId = async () => {
+  if (state.participantId) return state.participantId;
+  const { participantId } = await createNewParticipant();
+  const parsedId = Number(participantId);
+  setParticipantId(parsedId);
+  return parsedId;
+};
+
+const submit = async () => {
+  if (!isComplete.value || submitting.value) return;
+  submitError.value = "";
+  submitting.value = true;
+
+  try {
+    const participantId = await ensureParticipantId();
+    const payload = {
+      gender: answers.gender || "",
+      age: Number(answers.age ?? 0),
+      ethnicity: answers.ethnicity || "",
+      occupation: answers.occupation || "",
+      postcode: answers.postcode || "",
+      income: answers.income || "",
+      education: answers.education || "",
+      adFrequency: Number(answers.adFrequency ?? 0),
+    };
+    await setDemographicAnswers(participantId, payload);
+    savePreAnswers({ ...payload, age: payload.age });
+    router.push({ name: "content" });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Unable to save your answers.";
+    submitError.value = message;
+  } finally {
+    submitting.value = false;
+  }
 };
 </script>

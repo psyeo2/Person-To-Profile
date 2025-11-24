@@ -1,5 +1,8 @@
-import { register, login } from "./routes/auth";
 import { ping } from "./routes/health";
+import { createParticipant } from "./routes/participants";
+import { savePreSurvey } from "./routes/pre_questionnaire";
+import { savePostSurvey } from "./routes/post_questionnaire";
+import { saveAdsShown } from "./routes/ads";
 import { json, noContent } from "./utils/utils";
 
 export default {
@@ -17,13 +20,20 @@ export default {
 
     const apiPath = path.replace("/api", "");
 
-    // // HEALTH
-    // if (apiPath === "/ping" && method === "GET") return ping();
+    // HEALTH
+    if (apiPath === "/ping" && method === "GET") return ping();
 
-    // // AUTH
-    // if (apiPath === "/register" && method === "POST")
-    //   return register(request, env);
-    // if (apiPath === "/login" && method === "POST") return login(request, env);
+    // PARTICIPANT SESSION
+    if (apiPath === "/participants" && method === "POST")
+      return createParticipant(request, env);
+
+    // SURVEYS
+    if (apiPath === "/survey/pre" && method === "POST")
+      return savePreSurvey(request, env);
+    if (apiPath === "/survey/post" && method === "POST")
+      return savePostSurvey(request, env);
+    if (apiPath === "/survey/ads" && method === "POST")
+      return saveAdsShown(request, env);
 
     return json({ error: "Not found" }, 404);
   },

@@ -11,12 +11,12 @@
       <p class="hero-lede">
         This private tool walks participants through a concise demographic
         questionnaire, shows two creatives that match their profile, then
-        gathers immediate reactions. All responses stay on this device during
-        the session.
+        gathers immediate reactions. All responses are anonymised before
+        storage.
       </p>
       <div class="form-actions">
         <button class="btn" @click="start">Start now</button>
-        <span class="muted">5–7 minutes from start to finish.</span>
+        <span class="muted">5-7 minutes from start to finish.</span>
       </div>
     </section>
 
@@ -30,20 +30,33 @@
         </div>
       </div>
 
-      <div class="card status-card">
-        <div class="pill pill--accent">What to expect</div>
-        <div class="status-metric">
-          <span>Two ads per participant</span>
-          <strong>2× tailored</strong>
+      <div class="card insights-card">
+        <div class="insights-header">
+          <h3 class="insights-title">What to expect</h3>
         </div>
-        <div class="status-metric">
-          <span>Questionnaires</span>
-          <strong>Profile + follow-up</strong>
-        </div>
-        <div class="status-metric">
-          <span>Data handling</span>
-          <strong>Session only</strong>
-        </div>
+        <ul class="insights-list">
+          <li>
+            <div class="dot-badge">1</div>
+            <div>
+              <p class="insight-label">Two ads per participant</p>
+              <p class="insight-value">Tailored to the profile answers</p>
+            </div>
+          </li>
+          <li>
+            <div class="dot-badge">2</div>
+            <div>
+              <p class="insight-label">Questionnaires</p>
+              <p class="insight-value">Profile before, reactions after</p>
+            </div>
+          </li>
+          <li>
+            <div class="dot-badge">3</div>
+            <div>
+              <p class="insight-label">Data handling</p>
+              <p class="insight-value">Session-only, no identifiers stored</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
   </div>

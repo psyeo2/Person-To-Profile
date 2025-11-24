@@ -1,0 +1,45 @@
+{
+  "id": "heinz",
+  "file": "ad-content/images/heinz.jpg",
+  "tags": {
+    "gender": [
+      "female",
+      "nonbinary",
+      "prefer_not_to_say"
+    ],
+    "age": [
+      "35_49",
+      "50_64",
+      "65_plus"
+    ],
+    "ethnicity": [
+      "white"
+    ],
+    "occupation": [
+      "student",
+      "professional",
+      "manual_labour",
+      "retired",
+      "unemployed",
+      "other"
+    ],
+    "postcode": [
+      "north_england",
+      "south_england",
+      "midlands",
+      "northern_ireland"
+    ],
+    "income": [
+      "middle",
+      "high"
+    ],
+    "education_level": [
+      "gcse",
+      "a_level",
+      "undergraduate",
+      "postgraduate",
+      "doctorate",
+      "other"
+    ]
+  }
+}

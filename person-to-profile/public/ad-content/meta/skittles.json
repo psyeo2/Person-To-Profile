@@ -1,0 +1,49 @@
+{
+  "id": "skittles",
+  "file": "ad-content/images/skittles.jpg",
+  "tags": {
+    "gender": [
+      "male",
+      "female",
+      "nonbinary",
+      "prefer_not_to_say"
+    ],
+    "age": [
+      "under_18",
+      "18_24",
+      "25_34"
+    ],
+    "ethnicity": [
+      "white",
+      "black",
+      "asian",
+      "mixed",
+      "other"
+    ],
+    "occupation": [
+      "student",
+      "professional",
+      "manual_labour",
+      "unemployed",
+      "other"
+    ],
+    "postcode": [
+      "scotland",
+      "wales",
+      "northern_ireland"
+    ],
+    "income": [
+      "low",
+      "middle",
+      "high"
+    ],
+    "education_level": [
+      "gcse",
+      "a_level",
+      "undergraduate",
+      "postgraduate",
+      "doctorate",
+      "other"
+    ]
+  }
+}

@@ -12,7 +12,7 @@ export const routes: RouteRecordRaw[] = [
     path: "/",
     name: "home",
     component: HomeView,
-    meta: { title: "Welcome" },
+    meta: { title: "Home" },
   },
   {
     path: "/login",

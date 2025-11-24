@@ -24,14 +24,14 @@ export type PostSurveyAnswers = {
 export type SelectedAd = {
   id: string
   name: string
-  headline: string
-  copy: string
-  badge: string
-  angle: string
+  file?: string
+  score?: number
+  matchedTags?: string[]
 }
 
 const state = reactive({
   isAuthenticated: false,
+  participantId: null as number | null,
   hasSubmittedPre: false,
   hasSeenAds: false,
   hasCompletedPost: false,
@@ -43,6 +43,10 @@ const state = reactive({
 export function useSurveyState() {
   const setAuthenticated = (value: boolean) => {
     state.isAuthenticated = value
+  }
+
+  const setParticipantId = (id: number | null) => {
+    state.participantId = id
   }
 
   const savePreAnswers = (answers: DemographicAnswers) => {
@@ -67,6 +71,7 @@ export function useSurveyState() {
 
   const resetSession = () => {
     state.isAuthenticated = false
+    state.participantId = null
     state.hasSubmittedPre = false
     state.hasSeenAds = false
     state.hasCompletedPost = false
@@ -78,6 +83,7 @@ export function useSurveyState() {
   return {
     state,
     setAuthenticated,
+    setParticipantId,
     savePreAnswers,
     markAdsViewed,
     savePostAnswers,

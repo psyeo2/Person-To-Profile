@@ -32,19 +32,20 @@
         <button
           class="btn"
           type="button"
-          :disabled="!isComplete"
+          :disabled="!isComplete || submitting"
           @click="submit"
         >
-          Submit feedback
+          {{ submitting ? "Submitting..." : "Submit feedback" }}
         </button>
         <span class="muted">No personal identifiers are stored.</span>
       </div>
+      <p v-if="submitError" class="error-text">{{ submitError }}</p>
     </section>
 
     <section v-else class="card completion-card">
       <h2>Thank you for your feedback</h2>
       <p>
-        We appreciate your time. You can close this tab or restart if you’d like
+        We appreciate your time. You can close this tab or restart if you'd like
         to try again.
       </p>
       <div class="form-actions" style="justify-content: center">
@@ -61,6 +62,7 @@ import DropDownQuestion from "@/components/questions/DropDownQuestion.vue";
 import SliderQuestion from "@/components/questions/SliderQuestion.vue";
 import TextQuestion from "@/components/questions/TextQuestion.vue";
 import { useSurveyState, type PostSurveyAnswers } from "@/lib/surveyState";
+import { setSurveyAnswers } from "@/api";
 
 type QuestionType = "dropdown" | "slider" | "text";
 
@@ -80,6 +82,8 @@ type Question = {
 const router = useRouter();
 const { state, savePostAnswers, resetSession } = useSurveyState();
 const submitted = ref(false);
+const submitting = ref(false);
+const submitError = ref("");
 
 const answers = reactive<PostSurveyAnswers>({
   relevance: state.postAnswers.relevance ?? 3,
@@ -165,9 +169,36 @@ const componentForType: Record<QuestionType, unknown> = {
 };
 
 const submit = () => {
-  if (!isComplete.value) return;
-  savePostAnswers({ ...answers });
-  submitted.value = true;
+  if (!isComplete.value || submitting.value) return;
+  if (!state.participantId) {
+    submitError.value = "Missing participant id for this session.";
+    return;
+  }
+
+  submitError.value = "";
+  submitting.value = true;
+
+  const payload = {
+    relevance: Number(answers.relevance ?? 0),
+    favouriteAd: answers.favouriteAd || "",
+    consideration: Number(answers.consideration ?? 0),
+    recall: Number(answers.recall ?? 0),
+    takeaway: answers.takeaway || "",
+  };
+
+  setSurveyAnswers(state.participantId, payload)
+    .then(() => {
+      savePostAnswers(payload);
+      submitted.value = true;
+    })
+    .catch((err) => {
+      const message =
+        err instanceof Error ? err.message : "Unable to save your feedback.";
+      submitError.value = message;
+    })
+    .finally(() => {
+      submitting.value = false;
+    });
 };
 
 const restart = () => {

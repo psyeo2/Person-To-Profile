@@ -27,7 +27,9 @@
         </div>
 
         <div class="form-actions">
-          <button class="btn" type="submit">Continue</button>
+          <button class="btn" type="submit" :disabled="loading">
+            {{ loading ? "Starting..." : "Continue" }}
+          </button>
           <span class="muted">Single password for all participants.</span>
         </div>
       </form>
@@ -39,25 +41,39 @@
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { SURVEY_PASSWORD, useSurveyState } from "@/lib/surveyState";
+import { createNewParticipant } from "@/api";
 
 const router = useRouter();
 const route = useRoute();
-const { setAuthenticated, resetSession } = useSurveyState();
+const { setAuthenticated, resetSession, setParticipantId } = useSurveyState();
 
 const password = ref("");
 const error = ref("");
+const loading = ref(false);
 
-const submit = () => {
-  if (password.value.trim() === SURVEY_PASSWORD) {
-    error.value = "";
+const submit = async () => {
+  if (password.value.trim() !== SURVEY_PASSWORD) {
+    error.value = "Incorrect password. Please check the invite.";
+    return;
+  }
+
+  loading.value = true;
+  error.value = "";
+
+  try {
+    const { participantId } = await createNewParticipant();
+    setParticipantId(Number(participantId));
     setAuthenticated(true);
     const redirect =
       typeof route.query.redirect === "string" ? route.query.redirect : null;
     router.push(redirect || { name: "pre-questionnaire" });
-    return;
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Unable to start a new session.";
+    error.value = message;
+  } finally {
+    loading.value = false;
   }
-
-  error.value = "Incorrect password. Please check the invite.";
 };
 
 resetSession();
