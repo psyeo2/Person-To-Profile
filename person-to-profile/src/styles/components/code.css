@@ -1,0 +1,11 @@
+/* Code blocks */
+.code {
+  background: linear-gradient(135deg, #fffdf9, #ffe8d6);
+  color: var(--text-strong);
+  padding: 0.9rem;
+  border-radius: 12px;
+  overflow: auto;
+  max-height: 60vh;
+  border: 3px dashed #fff;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.1);
+}

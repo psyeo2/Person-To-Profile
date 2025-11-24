@@ -1,107 +1,130 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import { ref } from 'vue'
+import { RouterView, useRoute } from "vue-router";
+import { computed, onMounted, ref, watch } from "vue";
+import AppFooter from "./components/AppFooter.vue";
+import { useSurveyState } from "./lib/surveyState";
+import SunIcon from "@/assets/icons/sun-fill.svg";
+import MoonIcon from "@/assets/icons/moon-fill.svg";
 
-const name = ref('Unknown')
+const route = useRoute();
+const { state } = useSurveyState();
+const theme = ref<"light" | "dark">("light");
 
-const getName = async () => {
-  const res = await fetch('/api/')
-  const data = await res.json()
-  name.value = data.name
-}
+const steps = computed(() => {
+  const current = route.name;
+  return [
+    {
+      key: "login",
+      label: "Access",
+      status: state.isAuthenticated
+        ? "done"
+        : current === "login"
+        ? "active"
+        : "pending",
+    },
+    {
+      key: "profile",
+      label: "Profile",
+      status: state.hasSubmittedPre
+        ? "done"
+        : current === "pre-questionnaire"
+        ? "active"
+        : "pending",
+    },
+    {
+      key: "ads",
+      label: "Ads",
+      status: state.hasSeenAds
+        ? "done"
+        : current === "content"
+        ? "active"
+        : "pending",
+    },
+    {
+      key: "follow-up",
+      label: "Follow-up",
+      status: state.hasCompletedPost
+        ? "done"
+        : current === "post-questionnaire"
+        ? "active"
+        : "pending",
+    },
+  ];
+});
+
+const toggleTheme = () => {
+  theme.value = theme.value === "light" ? "dark" : "light";
+};
+
+const applyTheme = (value: "light" | "dark") => {
+  const root = document.documentElement;
+  root.setAttribute("data-theme", value);
+  try {
+    localStorage.setItem("theme-preference", value);
+  } catch {
+    /* ignore storage errors */
+  }
+};
+
+onMounted(() => {
+  const stored = localStorage.getItem("theme-preference");
+  if (stored === "light" || stored === "dark") {
+    theme.value = stored;
+  }
+  applyTheme(theme.value);
+});
+
+watch(theme, (value) => applyTheme(value));
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand__mark">AR</div>
+        <div class="brand__text">
+          <div class="brand__title">Ad Research Lab</div>
+          <div class="brand__tagline">
+            Private prototype for targeted creative testing
+          </div>
+        </div>
+      </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <button class="green" @click="getName" aria-label="get name">
-        Name from API is: {{ name }}
-      </button>
-      <p>Edit <code>server/index.ts</code> to change what the API gets</p>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <div class="header-actions">
+        <div class="theme-toggle">
+          <img class="theme-icon" :src="SunIcon" alt="" />
+          <label class="switch">
+            <input
+              type="checkbox"
+              :checked="theme === 'dark'"
+              @change="toggleTheme"
+              aria-label="Toggle theme"
+            />
+            <span class="slider"></span>
+          </label>
+          <img class="theme-icon" :src="MoonIcon" alt="" />
+        </div>
 
-  <RouterView />
+        <div class="stepper">
+          <div
+            v-for="step in steps"
+            :key="step.key"
+            class="stepper__item"
+            :class="{
+              'stepper__item--active': step.status === 'active',
+              'stepper__item--done': step.status === 'done',
+            }"
+          >
+            <span>{{ step.label }}</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <RouterView />
+    </main>
+
+    <AppFooter />
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-button {
-  background-color: hsla(160, 100%, 37%, 1);
-  color: var(--color-background);
-  border: 0;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  margin: 1rem 0 0.5rem 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

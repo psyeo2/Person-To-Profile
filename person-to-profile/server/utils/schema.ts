@@ -1,22 +1,10 @@
 const schemaStatements = [
-  `CREATE TABLE IF NOT EXISTS q1 (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    q_aire2 INTEGER FOREIGN KEY REFERENCES q2(id),
-    q1 INTEGER NOT NULL,
-    q2 INTEGER NOT NULL,
-    q3 INTEGER NOT NULL,
-    q4 INTEGER NOT NULL,
-    q5 INTEGER NOT NULL,
-    q6 INTEGER NOT NULL,
-    q7 INTEGER NOT NULL,
-    q8 INTEGER NOT NULL,
-    q9 INTEGER NOT NULL,
-    q10 INTEGER NOT NULL,
-  )`,
+  `CREATE TABLE IF NOT EXISTS participants (
+    participant_id INTEGER PRIMARY KEY AUTOINCREMENT
+  );`,
 
-  `CREATE TABLE IF NOT EXISTS q2 (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    q_aire1 INTEGER FOREIGN KEY REFERENCES q1(id),
+  `CREATE TABLE IF NOT EXISTS q_aire1 (
+    participant_id INTEGER PRIMARY KEY,
     q1 INTEGER NOT NULL,
     q2 INTEGER NOT NULL,
     q3 INTEGER NOT NULL,
@@ -27,7 +15,23 @@ const schemaStatements = [
     q8 INTEGER NOT NULL,
     q9 INTEGER NOT NULL,
     q10 INTEGER NOT NULL,
-  )`,
+    FOREIGN KEY (participant_id) REFERENCES participants(participant_id)
+  );`,
+
+  `CREATE TABLE IF NOT EXISTS q_aire2 (
+    participant_id INTEGER PRIMARY KEY,
+    q1 INTEGER NOT NULL,
+    q2 INTEGER NOT NULL,
+    q3 INTEGER NOT NULL,
+    q4 INTEGER NOT NULL,
+    q5 INTEGER NOT NULL,
+    q6 INTEGER NOT NULL,
+    q7 INTEGER NOT NULL,
+    q8 INTEGER NOT NULL,
+    q9 INTEGER NOT NULL,
+    q10 INTEGER NOT NULL,
+    FOREIGN KEY (participant_id) REFERENCES participants(participant_id)
+  );`,
 ];
 
 export const ensureSchema = async (db: any) => {

@@ -1,0 +1,35 @@
+.questionnaire-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.questionnaire-title {
+  margin: 0;
+  font-size: 1.65rem;
+  letter-spacing: -0.02em;
+}
+
+.questionnaire-lede {
+  color: var(--text-soft);
+  max-width: 720px;
+}
+
+.questionnaire-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.completion-card {
+  text-align: center;
+  padding: 2rem;
+}
+
+.completion-card h2 {
+  margin: 0 0 0.4rem;
+}
+
+.completion-card p {
+  color: var(--text-soft);
+  margin: 0;
+}

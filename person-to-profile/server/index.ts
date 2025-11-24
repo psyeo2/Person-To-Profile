@@ -17,13 +17,13 @@ export default {
 
     const apiPath = path.replace("/api", "");
 
-    // HEALTH
-    if (apiPath === "/ping" && method === "GET") return ping();
+    // // HEALTH
+    // if (apiPath === "/ping" && method === "GET") return ping();
 
-    // AUTH
-    if (apiPath === "/register" && method === "POST")
-      return register(request, env);
-    if (apiPath === "/login" && method === "POST") return login(request, env);
+    // // AUTH
+    // if (apiPath === "/register" && method === "POST")
+    //   return register(request, env);
+    // if (apiPath === "/login" && method === "POST") return login(request, env);
 
     return json({ error: "Not found" }, 404);
   },

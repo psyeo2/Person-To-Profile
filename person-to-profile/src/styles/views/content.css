@@ -1,0 +1,74 @@
+.ads-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ads-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.ad-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 25%, rgba(248, 107, 54, 0.08), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(45, 212, 191, 0.12), transparent 45%);
+  pointer-events: none;
+}
+
+.ad-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(45, 212, 191, 0.12);
+  color: var(--text);
+  border: 1px solid rgba(45, 212, 191, 0.2);
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 700;
+  position: relative;
+}
+
+.ad-title {
+  font-size: 1.2rem;
+  margin: 0.35rem 0 0.15rem;
+  letter-spacing: -0.01em;
+}
+
+.ad-headline {
+  font-size: 1.05rem;
+  margin: 0 0 0.35rem;
+  color: var(--text-strong);
+}
+
+.ad-copy {
+  color: var(--text-soft);
+  margin: 0;
+}
+
+.ad-meta {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ads-actions {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}

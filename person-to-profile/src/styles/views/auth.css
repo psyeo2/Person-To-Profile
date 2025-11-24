@@ -1,0 +1,19 @@
+.auth-card {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.login-title {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+}
+
+.auth-note {
+  color: var(--text-soft);
+}
+
+.error-text {
+  color: #ffb4a2;
+  font-weight: 600;
+}

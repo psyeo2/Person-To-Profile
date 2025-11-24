@@ -1,0 +1,73 @@
+.home-hero {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: var(--text-strong);
+}
+
+.hero-lede {
+  font-size: 1.05rem;
+  color: var(--text-soft);
+  max-width: 720px;
+}
+
+.home-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 2fr 1fr;
+}
+
+.home-steps {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.step {
+  padding: 0.95rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.step-title {
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+  color: var(--text-strong);
+}
+
+.step-desc {
+  color: var(--text-soft);
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.status-card {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.status-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.status-metric strong {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 960px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}

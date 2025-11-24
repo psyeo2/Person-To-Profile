@@ -1,0 +1,8 @@
+/* Card helpers */
+.card-inner {
+  padding: 0.85rem;
+  border: 2px dashed #fff;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12);
+}
