@@ -1,0 +1,56 @@
+{
+  "id": "ad_example_01",
+  "file": "ads/example.webp",
+  "tags": {
+    "gender": [
+      "male",
+      "female",
+      "nonbinary",
+      "prefer_not_to_say"
+    ],
+    "age": [
+      "under_18",
+      "18_24",
+      "25_34",
+      "35_49",
+      "50_64",
+      "65_plus"
+    ],
+    "ethnicity": [
+      "white",
+      "black",
+      "asian",
+      "mixed",
+      "other"
+    ],
+    "occupation": [
+      "student",
+      "professional",
+      "manual_labour",
+      "retired",
+      "unemployed",
+      "other"
+    ],
+    "postcode": [
+      "north_england",
+      "south_england",
+      "midlands",
+      "scotland",
+      "wales",
+      "northern_ireland"
+    ],
+    "income": [
+      "low",
+      "middle",
+      "high"
+    ],
+    "education_level": [
+      "gcse",
+      "a_level",
+      "undergraduate",
+      "postgraduate",
+      "doctorate",
+      "other"
+    ]
+  }
+}
