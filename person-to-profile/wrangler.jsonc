@@ -12,7 +12,15 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "ptp_db",
+			"database_name": "ptp_db",
+			"database_id": "1411f77b-a7f7-4ea0-9445-8a2b096a4e81",
+			"remote": true
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
