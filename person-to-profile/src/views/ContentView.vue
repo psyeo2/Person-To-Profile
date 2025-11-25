@@ -177,7 +177,7 @@ const buildAudienceTags = (answers: DemographicAnswers): AudienceTags => ({
 });
 
 const fetchAdMetadata = async (): Promise<AdMeta[]> => {
-  const manifestRes = await fetch("/ad-content/meta/manifest.json");
+  const manifestRes = await fetch("/ad-content/manifest.json");
   if (!manifestRes.ok) {
     throw new Error("Unable to load ads manifest.");
   }

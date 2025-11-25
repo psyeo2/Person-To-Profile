@@ -45,11 +45,13 @@
     <section v-else class="card completion-card">
       <h2>Thank you for your feedback</h2>
       <p>
-        We appreciate your time. You can close this tab or restart if you'd like
-        to try again.
+        We appreciate your time. You can close this tab or return to the home
+        page by clicking the button below.
       </p>
       <div class="form-actions" style="justify-content: center">
-        <button class="btn" type="button" @click="restart">Restart the study</button>
+        <button class="btn" type="button" @click="restart">
+          Return to home
+        </button>
       </div>
     </section>
   </div>

@@ -62,9 +62,10 @@ export const health = {
 };
 
 // could this just be a GET method that returns participant ID given no params are required to create a participant?
-export const createNewParticipant = () =>
+export const createNewParticipant = (turnstileToken: string) =>
   apiFetch<{ participantId: string }>("/participants", {
     method: "POST",
+    body: JSON.stringify({ turnstileToken }),
   });
 
 export const setDemographicAnswers = (

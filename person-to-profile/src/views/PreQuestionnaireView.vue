@@ -54,7 +54,7 @@ import PostCodeQuestion from "@/components/questions/PostCodeQuestion.vue";
 import SliderQuestion from "@/components/questions/SliderQuestion.vue";
 import TextQuestion from "@/components/questions/TextQuestion.vue";
 import { useSurveyState, type DemographicAnswers } from "@/lib/surveyState";
-import { createNewParticipant, setDemographicAnswers } from "@/api";
+import { setDemographicAnswers } from "@/api";
 
 type Question = {
   id: number;
@@ -206,12 +206,13 @@ const componentForType: Record<Question["type"], unknown> = {
   text: TextQuestion,
 };
 
-const ensureParticipantId = async () => {
+const ensureParticipantId = () => {
   if (state.participantId) return state.participantId;
-  const { participantId } = await createNewParticipant();
-  const parsedId = Number(participantId);
-  setParticipantId(parsedId);
-  return parsedId;
+  router.push({
+    name: "login",
+    query: { redirect: router.currentRoute.value.fullPath },
+  });
+  throw new Error("Session expired. Please log in again.");
 };
 
 const submit = async () => {
@@ -220,7 +221,7 @@ const submit = async () => {
   submitting.value = true;
 
   try {
-    const participantId = await ensureParticipantId();
+    const participantId = ensureParticipantId();
     const payload = {
       gender: answers.gender || "",
       age: Number(answers.age ?? 0),

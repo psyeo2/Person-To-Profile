@@ -17,7 +17,7 @@ export const validateTurnstile = async (token: string, ip: string | null): Promi
   const formData = new FormData();
   formData.append("secret", TURNSTILE_SECRET_KEY);
   formData.append("response", token);
-  // if (ip) formData.append("remoteip", ip);
+  if (ip) formData.append("remoteip", ip);
 
   // console.log("[turnstile.ts] Validating Turnstile token:", token);
   try {
